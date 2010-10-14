@@ -365,7 +365,7 @@
     }
   }
 
-  // add to kauriproject ns
+
   $.extend({
     uritemplate: Template
   });
