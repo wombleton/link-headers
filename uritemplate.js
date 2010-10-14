@@ -41,21 +41,13 @@
  * Added feature
  * - opts grouping of features:
  *   - iri (as it was before) 
- *   - skipEscape: boolean to control if %HH replacements should be made or not: without the replacing this templates get broather use outside URI scopes.
+ *   - skipEscape: boolean to control if %HH replacements should be made or not: without the replacing this templates get broader use outside URI scopes.
  *
  *
  * edited again to namespace kauriproject namespace
  */
-( function($) {
+(function($, undefined) {
 
-  if (!$)
-    throw "[uritemplate.js] requires jQuery";
-  if (!$.org.kauriproject)
-    throw "[uritemplate.js] requires the kauriproject namespace";
-
-  var kp = $.org.kauriproject;
-
-    
   var EXPR_REGEXP = /[.[]/; // tests if this is an expression to evaluate
   var SUBPROP_REGEXP = /^(\w+)([.[].*)$/;  // matches [1] for the propname and [2] for the remainder
   var INDEXPROP_REGEXP = /^\[("([^"]+)"|'([^']+)'|(\d*))\](.*)$/; // produces [2] or [3] for propnames or [4] for index number + \5 for remainder
@@ -296,7 +288,7 @@
         
     // TODO the URI template spec forces a specific unicode normalization to happen on the characters
     // we have to check in what way that algorithm is available inside the browser/to the javascript
-    var iri = opts ? opts.iri : undefined;
+    var iri = opts && opts.iri || undefined;
 
     str = "" + str; // ensure numbers are cast to string before escaping
     var ret = "";
@@ -374,7 +366,7 @@
   }
 
   // add to kauriproject ns
-  $.extend(kp, {
-    UriTemplate :Template
+  $.extend({
+    uritemplate: Template
   });
 })(jQuery);
