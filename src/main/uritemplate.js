@@ -44,7 +44,7 @@
  *   - skipEscape: boolean to control if %HH replacements should be made or not: without the replacing this templates get broader use outside URI scopes.
  *
  *
- * edited again to namespace kauriproject namespace
+ * Adapted further to be less namespaced, not require 'new' call
  */
 (function($, undefined) {
 
