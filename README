@@ -11,8 +11,8 @@ var links = $.linkheaders(linkHeader);
 links.find('foo bar').href().expand({ itemId: 'xxx' }) => /collection/xxx
 links.find(['foz']).href().expand({ itemId: 'xxx' }) => /collection/xxx
 links.find('baz').rel() => 'foz baz'
-links.find('foz').rel() => 'application/json
-links.each() => iterator
+links.find('foz').attr('type') => 'application/json
+links.each(fn) => calls fn(i, link) on each link.
 
 MIT License
 

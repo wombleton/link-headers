@@ -12,8 +12,8 @@
  * links.find('foo bar').href().expand({ itemId: 'xxx' }) => /collection/xxx
  * links.find(['foz']).href().expand({ itemId: 'xxx' }) => /collection/xxx
  * links.find('baz').rel() => 'foz baz'
- * links.find('foz').rel() => 'application/json
- * links.each() => iterator
+ * links.find('foz').attr('type') => 'application/json
+ * links.each(fn) => calls fn(i, link) on each link.
  *
  * MIT License
  */
@@ -41,7 +41,10 @@
       attr: function(key) {
         return attrs[key];
       },
-      href: function() {
+      resolve: function(obj) {
+        return this.template().expand(obj);
+      },
+      template: function() {
         return $.uritemplate(href);
       },
       rels: function() {
@@ -85,6 +88,9 @@
     }
 
     return {
+      each: function(fn) {
+        $.each(links, fn);
+      },
       find: find
     }
   }
