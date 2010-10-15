@@ -367,6 +367,8 @@
 
 
   $.extend({
-    uritemplate: Template
+    uritemplate: function(template, options) {
+      return new Template(template, options);
+    }
   });
 })(jQuery);

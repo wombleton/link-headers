@@ -269,7 +269,7 @@ function uriTests( data, set) {
     expect(count);
     
     for (pattern in set) {
-        var template = new $.uritemplate(pattern);
+        var template = $.uritemplate(pattern);
         var res = template.expand(data);
         var expected = set[pattern];
 
