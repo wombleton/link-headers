@@ -15,5 +15,5 @@ test("header parsing", function() {
 });
 
 function parse(header) {
-  return $.linkheader(header);
+  return $.linkheaders(header);
 }

@@ -1,9 +1,12 @@
 /**
- * JavaScript parsing of linkheaders from http://tools.ietf.org/html/draft-nottingham-http-link-header-10
+ * @author Rowan Crawford (wombleton@gmail.com)
+ * @version 0.1
+ * @requires jQuery, $.uritemplate
+ * @link http://github.com/wombleton/linkheaders
+
+ * JavaScript parsing of linkheaders as per http://tools.ietf.org/html/draft-nottingham-http-link-header-10
  *
- * Depends on jQuery and $.uritemplate
  * Usage:
- *
  * var linkHeader = 'Link: </collection/{itemId}>; rel="foo foz bar"; type="application/json", </fozzes/{fozId}>; rel="foz baz"; type="application/json"';
  * var links = $.linkheaders(linkHeader);
  * links.find('foo bar').href().expand({ itemId: 'xxx' }) => /collection/xxx
@@ -11,6 +14,8 @@
  * links.find('baz').rel() => 'foz baz'
  * links.find('foz').rel() => 'application/json
  * links.each() => iterator
+ *
+ * MIT License
  */
 
 (function($, undefined) {
@@ -84,12 +89,12 @@
     }
   }
 
-  function linkheader(header) {
+  function linkheaders(header) {
     return new Links(header);
   }
 
   $.extend({
-    linkheader: linkheader
+    linkheaders: linkheaders
   })
 
 })(jQuery);
