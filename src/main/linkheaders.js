@@ -14,10 +14,14 @@
  */
 
 (function($, undefined) {
-  function linkheaders(header) {
+  function linkheader(header) {
     header = $.trim(header);
-
-    var links
+    var links = [];
+    return links;
   }
+
+  $.extend({
+    linkheader: linkheader
+  })
 
 })(jQuery);
