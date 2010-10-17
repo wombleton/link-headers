@@ -7,7 +7,7 @@
  * JavaScript parsing of linkheaders as per http://tools.ietf.org/html/draft-nottingham-http-link-header-10
  *
  * Usage:
- * var linkHeader = 'Link: </collection/{itemId}>; rel="foo foz bar"; type="application/json", </fozzes/{fozId}>; rel="foz baz"; type="application/json"';
+ * var linkHeader = '</collection/{itemId}>; rel="foo foz bar"; type="application/json", </fozzes/{fozId}>; rel="foz baz"; type="application/json"';
  * var links = $.linkheaders(linkHeader);
  * links.find('foo bar').href().expand({ itemId: 'xxx' }) => /collection/xxx
  * links.find(['foz']).href().expand({ itemId: 'xxx' }) => /collection/xxx

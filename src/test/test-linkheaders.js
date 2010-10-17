@@ -1,7 +1,8 @@
 module('Link Header Testing');
 
 test("header parsing", function() {
-  var header = 'Link: </collection/{itemId}>; rel="foo foz bar"; type="application/json", </fozzes/{fozId}>; rel="foz baz"; type="application/json"';
+  var header = '</collection/{itemId}>; rel="foo foz bar"; type="application/json", </fozzes/{fozId}>; rel="foz baz"; type="application/json"';
+  expect(12);
   ok(parse(header), 'We get something truthy back from parsing');
   ok(parse(header).find, 'We get a find function on the return of parsing');
   ok(parse(header).find('baz'), 'We get something truthy back from find')
