@@ -19,8 +19,7 @@
  */
 
 (function($, undefined) {
-  var LINK_PREAMBLE = /^Link\s*:\s*/
-      URI_TEMPLATE = /^\s*<(.+)>/,
+  var URI_TEMPLATE = /^\s*<(.+)>/,
       RELS = /rel\s*=\s*"([^"]+)"/,
       ATTR_NAMES = ['anchor', 'rev', 'hreflang', 'media', 'title', 'type'];
 
@@ -35,7 +34,6 @@
       var re = new RegExp(name + '\s*=\s*"([^"]+)"');
       attrs[name] = (link.match(re) || [])[1] || '';
     });
-
 
     return {
       attr: function(key) {
@@ -66,15 +64,11 @@
 
   function Links(header) {
     var links = [];
-    header = $.trim(header) || '';
 
-    if (header.match(LINK_PREAMBLE)) {
-      header = header.replace(LINK_PREAMBLE, '');
-      $.each(header.split(','), function(i, link) {
-        link = new Link(link);
-        links.push(link);
-      });
-    }
+    $.each(($.trim(header) || '').split(','), function(i, link) {
+      link = new Link(link);
+      links.push(link);
+    });
 
     function find(rels) {
       var i, link;
