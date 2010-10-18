@@ -1,22 +1,26 @@
-/**
- * @author Rowan Crawford (wombleton@gmail.com)
- * @version 0.1
- * @requires jQuery, $.uritemplate
- * @link http://github.com/wombleton/linkheaders
+/*
 
- * JavaScript parsing of linkheaders as per http://tools.ietf.org/html/draft-nottingham-http-link-header-10
- *
- * Usage:
- * var linkHeader = '</collection/{itemId}>; rel="foo foz bar"; type="application/json", </fozzes/{fozId}>; rel="foz baz"; type="application/json"';
- * var links = $.linkheaders(linkHeader);
- * links.find('foo bar').href().expand({ itemId: 'xxx' }) => /collection/xxx
- * links.find(['foz']).href().expand({ itemId: 'xxx' }) => /collection/xxx
- * links.find('baz').rel() => 'foz baz'
- * links.find('foz').attr('type') => 'application/json
- * links.each(fn) => calls fn(i, link) on each link.
- *
- * MIT License
- */
+ @author Rowan Crawford (wombleton@gmail.com)
+ @version 0.2
+ @requires jQuery, $.uritemplate
+ @link http://github.com/wombleton/linkheaders
+
+ JavaScript parsing of linkheaders as per http://tools.ietf.org/html/draft-nottingham-http-link-header-10
+
+ Usage:
+ var linkHeader = '</collection/{itemId}>; rel="foo foz bar"; type="application/json", </fozzes/{fozId}>; rel="foz baz"; type="application/json"';
+ var links = $.linkheaders(linkHeader);
+ links.find('foo bar').href().expand({ itemId: 'xxx' }) => /collection/xxx
+ links.find(['foz']).href().expand({ itemId: 'xxx' }) => /collection/xxx
+ links.find('baz').rel() => 'foz baz'
+ links.find('foz').attr('type') => 'application/json
+ links.findAll('foz') => Array with two links
+ links.each(fn) => calls fn(i, link) on each link.
+ links.each('foo', fn) => calls fn(i, link) on each link that has rel 'foo'.
+
+ MIT License
+
+*/
 
 (function($, undefined) {
   var URI_TEMPLATE = /^\s*<(.+)>/,
@@ -71,21 +75,34 @@
     });
 
     function find(rels) {
-      var i, link;
+      var links = findAll(rels);
+      return links.length ? links[0] : null;
+    }
+
+    function findAll(rels) {
+      var i,
+          link,
+          result = [];
+
       for (i = 0; i < links.length; i++) {
         link = links[i];
-        if (link.match(rels)) {
-          return link;
+        if (!rels || link.match(rels)) {
+          result.push(link);
         }
       }
-      return null;
+      return result;
     }
 
     return {
-      each: function(fn) {
-        $.each(links, fn);
+      each: function(rels, fn) {
+        if ($.isFunction(rels)) {
+          fn = rels;
+          rels = undefined;
+        }
+        $.each(findAll(rels), fn);
       },
-      find: find
+      find: find,
+      findAll: findAll
     }
   }
 
