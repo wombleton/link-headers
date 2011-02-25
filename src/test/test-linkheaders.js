@@ -2,7 +2,7 @@ module('Link Header Testing');
 
 test("header parsing", function() {
   var count, header;
-  header = '</collection/{itemId}>; rel="foo foz bar"; type="application/json", </fozzes/{fozId}>; rel="foz baz"; type="application/json"';
+  header = '</collection/{itemId}>; rel="foo foz bar"; type="application/json"; title="xyz;abc,def", </fozzes/{fozId}>; rel="foz baz"; type="application/json"; title="xyz\r\nabc\r\n,def"';
   ok(parse(header), 'We get something truthy back from parsing');
   ok(parse(header).find, 'We get a find function on the return of parsing');
   ok(parse(header).find('baz'), 'We get something truthy back from find')
@@ -20,6 +20,9 @@ test("header parsing", function() {
   equals(parse(header).findAll('frumpty').length, 0, 'Find all frumpty gets no links');
   equals(parse(header).findAll().length, 2, 'Find all with undefined gets all links');
   ok(parse(header).each, 'An each method exists');
+  equals(parse(header).find('bar foz').attr('title'), 'xyz;abc,def');
+  equals(parse(header).find('baz foz').attr('title'), 'xyz\r\nabc\r\n,def');
+  ok(parse('xxxxxxxxx'), 'a totally rubbish header has no exception thrown');
 
   count = 0;
   parse(header).each(function(i, el) {
