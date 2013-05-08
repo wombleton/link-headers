@@ -1,7 +1,7 @@
 @author Rowan Crawford (wombleton@gmail.com)
 @version 0.2
 @requires jQuery, $.uritemplate
-@link http://github.com/wombleton/linkheaders
+@link http://github.com/wombleton/link-headers
 
 JavaScript parsing of linkheaders as per http://tools.ietf.org/html/draft-nottingham-http-link-header-10
 
